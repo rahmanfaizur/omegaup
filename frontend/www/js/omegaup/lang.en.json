@@ -460,6 +460,8 @@
 	"contestStartTime": "Starts: %(startDate)",
 	"contestStartedTime": "Started: %(startedDate)",
 	"contestUpdateAlreadyHasRuns": "Length of a contest can't be changed once a solution has been judged.",
+	"contestRecommended": "Recommended",
+	"wordsViewAll": "View All",
 	"contestVirtualMode": "Virtual",
 	"contestWillBeginIn": "This contest will begin in %(time)",
 	"contestsCreate": "Create Contest",
