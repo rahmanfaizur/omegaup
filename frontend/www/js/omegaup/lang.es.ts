@@ -2158,8 +2158,12 @@ const translations: { [key: string]: string; } = {
   wordsUpdateProblem: "Actualizar problema",
   wordsUpload: "Cargar",
   wordsUploadedOn: "Problema subido en: %(date)",
+  wordsUser: "Usuario",
+  wordsUsername: "Nombre de usuario",
   wordsUsersFeedback: "Opiniones de coders",
   wordsVerdict: "Veredicto",
+  wordsVerdicts: "Veredictos",
+  wordsViewAll: "Ver todos",
   wordsVerdictsOf: "Veredictos de %(alias)",
   wordsWallTimeInSeconds: "Tiempo-real (Seg)",
   wordsWarningProblem: "Conservar con una advertencia",
@@ -2167,4 +2171,4 @@ const translations: { [key: string]: string; } = {
   zipPrepare: "Preparar archivo zip",
 };
 
-export {translations as default};
+export { translations as default };

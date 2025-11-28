@@ -631,9 +631,12 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
 
         $order = self::getOrder($orderBy, 'finish_time');
 
-        $limits = "
-            ORDER BY
-                recommended DESC,
+        $limits = '
+            ORDER BY ';
+        if ($orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::NONE) {
+            $limits .= 'recommended DESC, ';
+        }
+        $limits .= "
                 {$order}
             LIMIT ?, ?;
         ";
@@ -1080,9 +1083,12 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
 
         $order = self::getOrder($orderBy);
 
-        $limits = "
-            ORDER BY
-                recommended DESC,
+        $limits = '
+            ORDER BY ';
+        if ($orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::NONE) {
+            $limits .= 'recommended DESC, ';
+        }
+        $limits .= "
                 {$order},
                 CASE WHEN original_finish_time > NOW() THEN 1 ELSE 0 END DESC
             LIMIT ?, ?";
@@ -1178,9 +1184,12 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
 
         $order = self::getOrder($orderBy);
 
-        $limits = "
-            ORDER BY
-                `recommended` DESC,
+        $limits = '
+            ORDER BY ';
+        if ($orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::NONE) {
+            $limits .= '`recommended` DESC, ';
+        }
+        $limits .= "
                 {$order},
                 CASE WHEN original_finish_time > NOW() THEN 1 ELSE 0 END DESC
             LIMIT ?, ?";
@@ -1268,12 +1277,15 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
 
         $order = self::getOrder($orderBy);
 
-        $limits = "
-            ORDER BY
-                `recommended` DESC,
+        $limits = '
+            ORDER BY ';
+        if ($orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::NONE) {
+            $limits .= '`recommended` DESC, ';
+        }
+        $limits .= "
                 {$order},
                 CASE WHEN original_finish_time > NOW() THEN 1 ELSE 0 END DESC
-            LIMIT ?, ?;";
+            LIMIT ?, ?";
 
         $params[] = max(0, $page - 1) * $rowsPerPage;
         $params[] = intval($rowsPerPage);
@@ -1557,6 +1569,15 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
             $orderBy
         ) ?: $defaultOrder;
 
-        return "{$order} {$orderMode}";
+        if (
+            $orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::TITLE ||
+            $orderBy === \OmegaUp\DAO\Enum\ContestOrderStatus::ORGANIZER
+        ) {
+            $orderMode = 'ASC';
+        }
+
+        $result = "{$order} {$orderMode}";
+        file_put_contents('/tmp/debug_contest.log', "getOrder: orderBy={$orderBy}, result={$result}\n", FILE_APPEND);
+        return $result;
     }
 }

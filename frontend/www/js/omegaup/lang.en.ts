@@ -2160,6 +2160,7 @@ const translations: { [key: string]: string; } = {
   wordsUploadedOn: "Problem uploaded on: %(date)",
   wordsUsersFeedback: "Coders Feedback",
   wordsVerdict: "Verdict",
+  wordsViewAll: "View All",
   wordsVerdictsOf: "Verdicts of %(alias)",
   wordsWallTimeInSeconds: "Wall-time (Sec)",
   wordsWarningProblem: "Keep with a warning",
@@ -2167,4 +2168,4 @@ const translations: { [key: string]: string; } = {
   zipPrepare: "Prepare zip file",
 };
 
-export {translations as default};
+export { translations as default };
