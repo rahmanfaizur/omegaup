@@ -149,7 +149,7 @@ library.add(fas);
   },
 })
 export default class ContestCard extends Vue {
-  @Prop() contest!: types.ContestListItem;
+  @Prop({ required: true }) contest!: types.ContestListItem;
 
   T = T;
   ui = ui;

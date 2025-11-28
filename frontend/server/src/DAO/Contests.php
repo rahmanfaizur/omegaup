@@ -1034,8 +1034,8 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
                         $columns,
                         COALESCE(contestants, 0) AS contestants,
                         ANY_VALUE(organizer.username) AS organizer,
-                        TIMESTAMPDIFF(MINUTE, start_time, finish_time) AS duration_minutes,
-                        BIT_OR(rc.participating) AS participating";
+                    IF(window_length IS NULL, TIMESTAMPDIFF(MINUTE, start_time, finish_time), window_length) AS duration_minutes,
+                    BIT_OR(rc.participating) AS participating";
         $sql = "
         FROM
             ($sqlRelevantContests) rc
@@ -1143,8 +1143,8 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
                         $columns,
                         COALESCE(contestants, 0) AS contestants,
                         ANY_VALUE(organizer.username) AS organizer,
-                        TIMESTAMPDIFF(MINUTE, start_time, finish_time) AS duration_minutes,
-                        FALSE AS `participating`
+                    IF(window_length IS NULL, TIMESTAMPDIFF(MINUTE, start_time, finish_time), window_length) AS duration_minutes,
+                    FALSE AS `participating`
                         ";
         $sql = "
                 FROM
@@ -1577,7 +1577,7 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
         }
 
         $result = "{$order} {$orderMode}";
-        file_put_contents('/tmp/debug_contest.log', "getOrder: orderBy={$orderBy}, result={$result}\n", FILE_APPEND);
+
         return $result;
     }
 }

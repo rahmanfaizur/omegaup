@@ -448,6 +448,7 @@ const translations: { [key: string]: string; } = {
   contestPrintableVersion: "Versi\u00f3n imprimible",
   contestPublicForTeamsNotSupported: "Los concursos p\u00fablicos para equipos no son soportados a\u00fan.",
   contestPublicRequiresProblem: "Los concursos p\u00fablicos necesitan tener un problema. Agr\u00e9gale un problema y m\u00e1rcalo como p\u00fablico en Editar Concurso.",
+  contestRecommended: "Recomendado",
   contestRegistrationPreAcceptedDescription: "Esta cuenta ha sido invitada expl\u00edcitamente al concurso",
   contestReport: "Reporte de Concurso: %(contest_alias)",
   contestReportProblemWithAlias: "Problema: %(alias)",
@@ -2158,17 +2159,14 @@ const translations: { [key: string]: string; } = {
   wordsUpdateProblem: "Actualizar problema",
   wordsUpload: "Cargar",
   wordsUploadedOn: "Problema subido en: %(date)",
-  wordsUser: "Usuario",
-  wordsUsername: "Nombre de usuario",
   wordsUsersFeedback: "Opiniones de coders",
   wordsVerdict: "Veredicto",
-  wordsVerdicts: "Veredictos",
-  wordsViewAll: "Ver todos",
   wordsVerdictsOf: "Veredictos de %(alias)",
+  wordsViewAll: "Ver todos",
   wordsWallTimeInSeconds: "Tiempo-real (Seg)",
   wordsWarningProblem: "Conservar con una advertencia",
   wordsYes: "S\u00ed",
   zipPrepare: "Preparar archivo zip",
 };
 
-export { translations as default };
+export {translations as default};
