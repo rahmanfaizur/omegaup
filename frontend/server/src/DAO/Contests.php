@@ -1577,7 +1577,6 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
         }
 
         $result = "{$order} {$orderMode}";
-        file_put_contents('/tmp/debug_contest.log', "getOrder: orderBy={$orderBy}, result={$result}\n", FILE_APPEND);
         return $result;
     }
 }

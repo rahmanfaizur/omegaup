@@ -445,6 +445,8 @@ const translations: { [key: string]: string; } = {
   contestOrderByTitle: "Name",
   contestParticipant: "Coder",
   contestPracticeMode: "Practice",
+  contestRecommended: "Recommended",
+  wordsViewAll: "View All",
   contestPrintableVersion: "Printable version",
   contestPublicForTeamsNotSupported: "Public contests for teams are not supported yet",
   contestPublicRequiresProblem: "Public contests require at least one problem. Please add a problem to this contest before marking it as public.",

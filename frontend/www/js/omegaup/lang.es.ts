@@ -445,6 +445,8 @@ const translations: { [key: string]: string; } = {
   contestOrderByTitle: "Nombre",
   contestParticipant: "Coder",
   contestPracticeMode: "Pr\u00e1ctica",
+  contestRecommended: "Recomendado",
+  wordsViewAll: "Ver todos",
   contestPrintableVersion: "Versi\u00f3n imprimible",
   contestPublicForTeamsNotSupported: "Los concursos p\u00fablicos para equipos no son soportados a\u00fan.",
   contestPublicRequiresProblem: "Los concursos p\u00fablicos necesitan tener un problema. Agr\u00e9gale un problema y m\u00e1rcalo como p\u00fablico en Editar Concurso.",

@@ -184,7 +184,7 @@
           >
             <font-awesome-icon icon="chevron-left" />
           </b-button>
-          
+
           <div :ref="`scrollContainer_${tab}`" class="horizontal-scroll-container px-3 pb-3" @scroll="onScroll(tab)">
             <div v-if="getContestsForTab(tab).length === 0" class="text-muted font-italic ml-3">
               {{ T.contestListEmpty }}
@@ -197,48 +197,54 @@
                 style="min-width: 300px; max-width: 300px;"
               >
                 <omegaup-contest-card :contest="contestItem">
-                   <!-- Slots for Current -->
-                   <template v-if="tab === ContestTab.Current" #contest-button-scoreboard><div></div></template>
-                   <template v-if="tab === ContestTab.Current" #text-contest-date>
-                      <b-card-text>
+                   <template #contest-button-scoreboard>
+                     <div v-if="tab === ContestTab.Current"></div>
+                     <div v-if="tab === ContestTab.Future"></div>
+                   </template>
+
+                   <template #text-contest-date>
+                      <b-card-text v-if="tab === ContestTab.Current">
                         <font-awesome-icon icon="calendar-alt" />
                         <a :href="getTimeLink(contestItem.finish_time)">
                           {{ ui.formatString(T.contestEndTime, { endDate: finishContestDate(contestItem) }) }}
                         </a>
                       </b-card-text>
-                   </template>
-                   <template v-if="tab === ContestTab.Current" #contest-dropdown><div></div></template>
-
-                   <!-- Slots for Future -->
-                   <template v-if="tab === ContestTab.Future" #contest-button-scoreboard><div></div></template>
-                   <template v-if="tab === ContestTab.Future" #text-contest-date>
-                      <b-card-text>
+                      <b-card-text v-if="tab === ContestTab.Future">
                         <font-awesome-icon icon="calendar-alt" />
                         <a :href="getTimeLink(contestItem.start_time)">
                           {{ ui.formatString(T.contestStartTime, { startDate: startContestDate(contestItem) }) }}
                         </a>
                       </b-card-text>
-                   </template>
-                   <template v-if="tab === ContestTab.Future" #contest-button-enter><div></div></template>
-                   <template v-if="tab === ContestTab.Future" #contest-dropdown><div></div></template>
-
-                   <!-- Slots for Past -->
-                   <template v-if="tab === ContestTab.Past" #contest-enroll-status><div></div></template>
-                   <template v-if="tab === ContestTab.Past" #text-contest-date>
-                      <b-card-text>
+                      <b-card-text v-if="tab === ContestTab.Past">
                         <font-awesome-icon icon="calendar-alt" />
                         <a :href="getTimeLink(contestItem.start_time)">
                           {{ ui.formatString(T.contestStartedTime, { startedDate: startContestDate(contestItem) }) }}
                         </a>
                       </b-card-text>
                    </template>
-                   <template v-if="tab === ContestTab.Past" #contest-button-enter><div></div></template>
-                   <template v-if="tab === ContestTab.Past" #contest-button-see-details><div></div></template>
+
+                   <template #contest-dropdown>
+                     <div v-if="tab === ContestTab.Current"></div>
+                     <div v-if="tab === ContestTab.Future"></div>
+                   </template>
+
+                   <template #contest-button-enter>
+                     <div v-if="tab === ContestTab.Future"></div>
+                     <div v-if="tab === ContestTab.Past"></div>
+                   </template>
+
+                   <template #contest-enroll-status>
+                     <div v-if="tab === ContestTab.Past"></div>
+                   </template>
+
+                   <template #contest-button-see-details>
+                     <div v-if="tab === ContestTab.Past"></div>
+                   </template>
                 </omegaup-contest-card>
               </div>
             </div>
           </div>
-          
+
           <b-button
             v-if="canScrollRight(tab)"
             variant="light"
@@ -281,43 +287,49 @@
             class="mb-4"
           >
             <omegaup-contest-card :contest="contestItem">
-                 <!-- Slots for Current -->
-                 <template v-if="viewAllCategory === ContestTab.Current" #contest-button-scoreboard><div></div></template>
-                 <template v-if="viewAllCategory === ContestTab.Current" #text-contest-date>
-                    <b-card-text>
+                 <template #contest-button-scoreboard>
+                   <div v-if="viewAllCategory === ContestTab.Current"></div>
+                   <div v-if="viewAllCategory === ContestTab.Future"></div>
+                 </template>
+
+                 <template #text-contest-date>
+                    <b-card-text v-if="viewAllCategory === ContestTab.Current">
                       <font-awesome-icon icon="calendar-alt" />
                       <a :href="getTimeLink(contestItem.finish_time)">
                         {{ ui.formatString(T.contestEndTime, { endDate: finishContestDate(contestItem) }) }}
                       </a>
                     </b-card-text>
-                 </template>
-                 <template v-if="viewAllCategory === ContestTab.Current" #contest-dropdown><div></div></template>
-
-                 <!-- Slots for Future -->
-                 <template v-if="viewAllCategory === ContestTab.Future" #contest-button-scoreboard><div></div></template>
-                 <template v-if="viewAllCategory === ContestTab.Future" #text-contest-date>
-                    <b-card-text>
+                    <b-card-text v-if="viewAllCategory === ContestTab.Future">
                       <font-awesome-icon icon="calendar-alt" />
                       <a :href="getTimeLink(contestItem.start_time)">
                         {{ ui.formatString(T.contestStartTime, { startDate: startContestDate(contestItem) }) }}
                       </a>
                     </b-card-text>
-                 </template>
-                 <template v-if="viewAllCategory === ContestTab.Future" #contest-button-enter><div></div></template>
-                 <template v-if="viewAllCategory === ContestTab.Future" #contest-dropdown><div></div></template>
-
-                 <!-- Slots for Past -->
-                 <template v-if="viewAllCategory === ContestTab.Past" #contest-enroll-status><div></div></template>
-                 <template v-if="viewAllCategory === ContestTab.Past" #text-contest-date>
-                    <b-card-text>
+                    <b-card-text v-if="viewAllCategory === ContestTab.Past">
                       <font-awesome-icon icon="calendar-alt" />
                       <a :href="getTimeLink(contestItem.start_time)">
                         {{ ui.formatString(T.contestStartedTime, { startedDate: startContestDate(contestItem) }) }}
                       </a>
                     </b-card-text>
                  </template>
-                 <template v-if="viewAllCategory === ContestTab.Past" #contest-button-enter><div></div></template>
-                 <template v-if="viewAllCategory === ContestTab.Past" #contest-button-see-details><div></div></template>
+
+                 <template #contest-dropdown>
+                   <div v-if="viewAllCategory === ContestTab.Current"></div>
+                   <div v-if="viewAllCategory === ContestTab.Future"></div>
+                 </template>
+
+                 <template #contest-button-enter>
+                   <div v-if="viewAllCategory === ContestTab.Future"></div>
+                   <div v-if="viewAllCategory === ContestTab.Past"></div>
+                 </template>
+
+                 <template #contest-enroll-status>
+                   <div v-if="viewAllCategory === ContestTab.Past"></div>
+                 </template>
+
+                 <template #contest-button-see-details>
+                   <div v-if="viewAllCategory === ContestTab.Past"></div>
+                 </template>
             </omegaup-contest-card>
           </b-col>
         </b-row>
@@ -340,7 +352,7 @@
 </template>
 
 <script lang="ts">
-const debounce = (fn: Function, waitTime: number) => {
+const debounce = (fn: (...args: any[]) => void, waitTime: number) => {
   let timer: number | null = null;
   return (...args: any[]) => {
     if (timer) {
@@ -588,7 +600,7 @@ class ArenaContestList extends Vue {
     const maxScroll = this.maxScrollPositions[tab] || 0;
     // If maxScroll is 0, we might not have calculated it yet, so check if we have enough items
     if (maxScroll === 0) {
-       return true; 
+       return true;
     }
     return currentScroll < maxScroll - 10; // -10 for tolerance
   }
@@ -875,7 +887,7 @@ export default ArenaContestList;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.2s, visibility 0.2s;
-  
+
   &:hover {
     opacity: 1 !important;
   }
