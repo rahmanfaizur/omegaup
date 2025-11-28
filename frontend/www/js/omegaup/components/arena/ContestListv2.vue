@@ -260,7 +260,7 @@
     <!-- Full Grid View -->
     <div v-else>
       <div class="d-flex align-items-center mb-4 px-3">
-        <b-button variant="outline-secondary" class="mr-3" @click="setViewAll(null)" :title="T.wordsBack">
+        <b-button variant="outline-secondary" class="mr-3" :title="T.wordsBack" @click="setViewAll(null)">
           <font-awesome-icon icon="arrow-left" />
         </b-button>
         <h2 class="m-0">{{ getTabTitle(viewAllCategory) }}</h2>
