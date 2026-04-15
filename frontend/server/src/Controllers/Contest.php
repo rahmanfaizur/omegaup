@@ -341,7 +341,11 @@ class Contest extends \OmegaUp\Controllers\Controller {
         $result = [];
         foreach (['current', 'future', 'past'] as $tabName) {
             /** @var list<ContestListItem> */
-            $results = array_slice($contestsByTab[$tabName], $offset, $pageSize);
+            $results = array_slice(
+                $contestsByTab[$tabName],
+                $offset,
+                $pageSize
+            );
             $result[$tabName] = [
                 'number_of_results' => count($contestsByTab[$tabName]),
                 'results' => $results,
