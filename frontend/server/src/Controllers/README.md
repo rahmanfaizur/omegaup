@@ -1180,6 +1180,20 @@ types.ContestDetails;
 
 Returns a list of contests
 
+### Parameters
+
+| Name             | Type                                                                                | Description | Required |
+| ---------------- | ----------------------------------------------------------------------------------- | ----------- | -------- |
+| `admission_mode` | `'private'\|'public'\|'registration'\|null`                                         |             |          |
+| `filter`         | `'all'\|'recommended'\|'signedup'\|null`                                            |             |          |
+| `page`           | `int\|null`                                                                         |             |          |
+| `page_size`      | `int\|null`                                                                         |             |          |
+| `participating`  | `int\|null`                                                                         |             |          |
+| `query`          | `null\|string`                                                                      |             |          |
+| `recommended`    | `int\|null`                                                                         |             |          |
+| `sort_order`     | `'contestants'\|'duration'\|'ends'\|'none'\|'organizer'\|'signedup'\|'title'\|null` |             |          |
+| `tab_name`       | `'all'\|'current'\|'future'\|'past'\|null`                                          |             |          |
+
 ### Returns
 
 | Name                | Type                          |
@@ -1192,6 +1206,20 @@ Returns a list of contests
 ### Description
 
 Returns paginated contest lists for current, past, and future in one API call.
+
+### Parameters
+
+| Name             | Type                                                                                | Description | Required |
+| ---------------- | ----------------------------------------------------------------------------------- | ----------- | -------- |
+| `admission_mode` | `'private'\|'public'\|'registration'\|null`                                         |             |          |
+| `filter`         | `'all'\|'recommended'\|'signedup'\|null`                                            |             |          |
+| `page`           | `int\|null`                                                                         |             |          |
+| `page_size`      | `int\|null`                                                                         |             |          |
+| `participating`  | `int\|null`                                                                         |             |          |
+| `query`          | `null\|string`                                                                      |             |          |
+| `recommended`    | `int\|null`                                                                         |             |          |
+| `sort_order`     | `'contestants'\|'duration'\|'ends'\|'none'\|'organizer'\|'signedup'\|'title'\|null` |             |          |
+| `tab_name`       | `'all'\|'current'\|'future'\|'past'\|null`                                          |             |          |
 
 ### Returns
 
