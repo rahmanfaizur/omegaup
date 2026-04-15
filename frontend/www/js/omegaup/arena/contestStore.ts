@@ -26,7 +26,7 @@ export interface ContestState {
   countContests: Record<string, number>;
   cache: Record<
     string,
-    messages.ContestListResponse | messages.ContestListAllTabsResponse
+    messages.ContestListResponse | ContestListAllTabsResponse
   >;
   loading: boolean;
 }
@@ -43,8 +43,96 @@ interface NamedContestListResponse {
   page?: number;
 }
 
+type ContestListAllTabsRequest = {
+  page: number;
+  query: string;
+  sort_order: ContestOrder;
+  filter: ContestFilter;
+};
+
+type ContestListAllTabsTabResponse = {
+  number_of_results: number;
+  results: types.ContestListItem[];
+};
+
+type ContestListAllTabsResponse = {
+  current: ContestListAllTabsTabResponse;
+  past: ContestListAllTabsTabResponse;
+  future: ContestListAllTabsTabResponse;
+};
+
+type ContestListAllTabsServerResponse = {
+  current: {
+    number_of_results: number;
+    results: Array<
+      Omit<
+        types.ContestListItem,
+        'finish_time' | 'last_updated' | 'original_finish_time' | 'start_time'
+      > & {
+        finish_time: number;
+        last_updated: number;
+        original_finish_time: number;
+        start_time: number;
+      }
+    >;
+  };
+  past: {
+    number_of_results: number;
+    results: Array<
+      Omit<
+        types.ContestListItem,
+        'finish_time' | 'last_updated' | 'original_finish_time' | 'start_time'
+      > & {
+        finish_time: number;
+        last_updated: number;
+        original_finish_time: number;
+        start_time: number;
+      }
+    >;
+  };
+  future: {
+    number_of_results: number;
+    results: Array<
+      Omit<
+        types.ContestListItem,
+        'finish_time' | 'last_updated' | 'original_finish_time' | 'start_time'
+      > & {
+        finish_time: number;
+        last_updated: number;
+        original_finish_time: number;
+        start_time: number;
+      }
+    >;
+  };
+};
+
+const listAllTabs = api.apiCall<
+  ContestListAllTabsRequest,
+  ContestListAllTabsServerResponse,
+  ContestListAllTabsResponse
+>('/api/contest/listAllTabs/', (response) => {
+  const mapTabResponse = (
+    tabResponse: ContestListAllTabsServerResponse['current'],
+  ): ContestListAllTabsTabResponse => ({
+    number_of_results: tabResponse.number_of_results,
+    results: tabResponse.results.map((contest) => ({
+      ...contest,
+      finish_time: new Date(contest.finish_time * 1000),
+      last_updated: new Date(contest.last_updated * 1000),
+      original_finish_time: new Date(contest.original_finish_time * 1000),
+      start_time: new Date(contest.start_time * 1000),
+    })),
+  });
+
+  return {
+    current: mapTabResponse(response.current),
+    past: mapTabResponse(response.past),
+    future: mapTabResponse(response.future),
+  };
+});
+
 const pendingAllTabsRequests: Partial<
-  Record<string, Promise<messages.ContestListAllTabsResponse>>
+  Record<string, Promise<ContestListAllTabsResponse>>
 > = {};
 
 export const contestStoreConfig = {
@@ -101,11 +189,11 @@ export const contestStoreConfig = {
         response,
         page,
       }: {
-        response: messages.ContestListAllTabsResponse;
+        response: ContestListAllTabsResponse;
         page: number;
       },
     ) {
-      const tabs: (keyof messages.ContestListAllTabsResponse)[] = [
+      const tabs: Array<keyof ContestListAllTabsResponse> = [
         'current',
         'past',
         'future',
@@ -114,9 +202,10 @@ export const contestStoreConfig = {
         const tabResponse = response[tab];
         const existingContests = page === 1 ? [] : state.contests[tab] || [];
         const newContests = tabResponse.results.filter(
-          (newContest) =>
+          (newContest: types.ContestListItem) =>
             !existingContests.some(
-              (existing) => existing.contest_id === newContest.contest_id,
+              (existing: types.ContestListItem) =>
+                existing.contest_id === newContest.contest_id,
             ),
         );
         Vue.set(state.contests, tab, [...existingContests, ...newContests]);
@@ -127,7 +216,7 @@ export const contestStoreConfig = {
       state: ContestState,
       payload: {
         cacheKey: string;
-        response: messages.ContestListAllTabsResponse;
+        response: ContestListAllTabsResponse;
         requestParams: UrlParams;
       },
     ) {
@@ -154,7 +243,7 @@ export const contestStoreConfig = {
       const cached = state.cache[cacheKey];
       if (cached && 'current' in cached) {
         commit('applyAllTabsResponse', {
-          response: cached as messages.ContestListAllTabsResponse,
+          response: cached as ContestListAllTabsResponse,
           page: payload.requestParams.page,
         });
         return Promise.resolve();
@@ -167,8 +256,8 @@ export const contestStoreConfig = {
         sort_order: p.sort_order,
         filter: p.filter,
       };
-      pendingAllTabsRequests[cacheKey] = api.Contest.listAllTabs(listParams)
-        .then((response) => {
+      pendingAllTabsRequests[cacheKey] = listAllTabs(listParams)
+        .then((response: ContestListAllTabsResponse) => {
           commit('cacheAllTabsList', {
             cacheKey,
             response,
@@ -180,7 +269,7 @@ export const contestStoreConfig = {
           });
           return response;
         })
-        .catch((err) => {
+        .catch((err: any) => {
           ui.apiError(err);
           throw err;
         })
