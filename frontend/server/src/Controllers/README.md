@@ -1180,20 +1180,6 @@ types.ContestDetails;
 
 Returns a list of contests
 
-### Parameters
-
-| Name             | Type                                        | Description | Required |
-| ---------------- | ------------------------------------------- | ----------- | -------- |
-| `page`           | `int`                                       |             | ✓        |
-| `page_size`      | `int`                                       |             | ✓        |
-| `query`          | `string`                                    |             | ✓        |
-| `tab_name`       | `string`                                    |             | ✓        |
-| `admission_mode` | `'private'\|'public'\|'registration'\|null` |             |          |
-| `filter`         | `'all'\|'recommended'\|'signedup'\|null`    |             |          |
-| `participating`  | `int\|null`                                 |             |          |
-| `recommended`    | `int\|null`                                 |             |          |
-| `sort_order`     | `null\|string`                              |             |          |
-
 ### Returns
 
 | Name                | Type                          |
@@ -1206,19 +1192,6 @@ Returns a list of contests
 ### Description
 
 Returns paginated contest lists for current, past, and future in one API call.
-
-### Parameters
-
-| Name             | Type                                        | Description | Required |
-| ---------------- | ------------------------------------------- | ----------- | -------- |
-| `page`           | `int`                                       |             | ✓        |
-| `page_size`      | `int`                                       |             | ✓        |
-| `query`          | `string`                                    |             | ✓        |
-| `admission_mode` | `'private'\|'public'\|'registration'\|null` |             |          |
-| `filter`         | `'all'\|'recommended'\|'signedup'\|null`    |             |          |
-| `participating`  | `int\|null`                                 |             |          |
-| `recommended`    | `int\|null`                                 |             |          |
-| `sort_order`     | `null\|string`                              |             |          |
 
 ### Returns
 

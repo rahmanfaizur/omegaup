@@ -86,16 +86,6 @@ class Contest extends \OmegaUp\Controllers\Controller {
      * Returns a list of contests
      *
      * @return array{number_of_results: int, results: list<ContestListItem>}
-     *
-     * @omegaup-request-param 'private'|'public'|'registration'|null $admission_mode
-     * @omegaup-request-param 'all'|'recommended'|'signedup'|null $filter
-     * @omegaup-request-param int $page
-     * @omegaup-request-param int $page_size
-     * @omegaup-request-param int|null $participating
-     * @omegaup-request-param string $query
-     * @omegaup-request-param int|null $recommended
-     * @omegaup-request-param null|string $sort_order
-     * @omegaup-request-param string $tab_name
      */
     public static function apiList(\OmegaUp\Request $r): array {
         [
@@ -134,15 +124,6 @@ class Contest extends \OmegaUp\Controllers\Controller {
      * Returns paginated contest lists for current, past, and future in one API call.
      *
      * @return array{current: array{number_of_results: int, results: list<ContestListItem>}, future: array{number_of_results: int, results: list<ContestListItem>}, past: array{number_of_results: int, results: list<ContestListItem>}}
-     *
-     * @omegaup-request-param 'private'|'public'|'registration'|null $admission_mode
-     * @omegaup-request-param 'all'|'recommended'|'signedup'|null $filter
-     * @omegaup-request-param int $page
-     * @omegaup-request-param int $page_size
-     * @omegaup-request-param int|null $participating
-     * @omegaup-request-param string $query
-     * @omegaup-request-param int|null $recommended
-     * @omegaup-request-param null|string $sort_order
      */
     public static function apiListAllTabs(\OmegaUp\Request $r): array {
         [
@@ -172,6 +153,16 @@ class Contest extends \OmegaUp\Controllers\Controller {
 
     /**
      * @return array{activeContests: int, orderBy: int, page: int, pageSize: int, participating: int, public: bool, query: string | null, recommended: int}
+     *
+     * @omegaup-request-param 'private'|'public'|'registration'|null $admission_mode
+     * @omegaup-request-param 'all'|'recommended'|'signedup'|null $filter
+     * @omegaup-request-param int|null $page
+     * @omegaup-request-param int|null $page_size
+     * @omegaup-request-param int|null $participating
+     * @omegaup-request-param null|string $query
+     * @omegaup-request-param int|null $recommended
+     * @omegaup-request-param 'contestants'|'duration'|'ends'|'none'|'organizer'|'signedup'|'title'|null $sort_order
+     * @omegaup-request-param 'all'|'current'|'future'|'past'|null $tab_name
      */
     private static function getContestListRequestParams(
         \OmegaUp\Request $r,
