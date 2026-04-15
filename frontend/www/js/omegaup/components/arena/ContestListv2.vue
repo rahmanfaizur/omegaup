@@ -18,7 +18,7 @@
                 <form @submit.prevent="onSearchQuery">
                   <div class="input-group">
                     <input
-m                       v-model="currentQuery"
+                      v-model="currentQuery"
                       class="form-control nav-link"
                       type="text"
                       name="query"
