@@ -297,15 +297,16 @@ class Contest extends \OmegaUp\Controllers\Controller {
         int $participating,
         int $orderBy
     ): array {
-        /** @var array<string, int> */
-        $tabsByStatus = [
-            'current' => \OmegaUp\DAO\Enum\ContestTabStatus::CURRENT,
-            'future' => \OmegaUp\DAO\Enum\ContestTabStatus::FUTURE,
-            'past' => \OmegaUp\DAO\Enum\ContestTabStatus::PAST,
-        ];
-        /** @var array{current: ContestListTabPayload, future: ContestListTabPayload, past: ContestListTabPayload} */
-        $result = [];
-        foreach ($tabsByStatus as $tabName => $activeContests) {
+        $getTabPayload = function (int $activeContests) use (
+            $identity,
+            $query,
+            $page,
+            $pageSize,
+            $recommended,
+            $public,
+            $participating,
+            $orderBy
+        ): array {
             [
                 'contests' => $contests,
                 'count' => $count,
@@ -320,13 +321,23 @@ class Contest extends \OmegaUp\Controllers\Controller {
                 $participating,
                 $orderBy
             );
-            $result[$tabName] = [
+            return [
                 'number_of_results' => $count,
                 'results' => $contests,
             ];
-        }
+        };
 
-        return $result;
+        return [
+            'current' => $getTabPayload(
+                \OmegaUp\DAO\Enum\ContestTabStatus::CURRENT
+            ),
+            'future' => $getTabPayload(
+                \OmegaUp\DAO\Enum\ContestTabStatus::FUTURE
+            ),
+            'past' => $getTabPayload(
+                \OmegaUp\DAO\Enum\ContestTabStatus::PAST
+            ),
+        ];
     }
 
     /**
