@@ -850,12 +850,11 @@ class Contests extends \OmegaUp\DAO\Base\Contests {
         int $identity_id,
         int $page = 1,
         int $pageSize = 1000,
-        int $activeContests = \OmegaUp\DAO\Enum\ActiveStatus::ALL,
         ?string $query = null,
         int $orderBy = 0
     ) {
         $endCheck = \OmegaUp\DAO\Enum\ActiveStatus::sql(
-            $activeContests
+            \OmegaUp\DAO\Enum\ActiveStatus::ALL
         );
         $recommendedCheck = \OmegaUp\DAO\Enum\RecommendedStatus::sql(
             \OmegaUp\DAO\Enum\ActiveStatus::ALL
