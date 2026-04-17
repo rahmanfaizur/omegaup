@@ -392,6 +392,7 @@ class Contest extends \OmegaUp\Controllers\Controller {
                 $identity->identity_id,
                 $page,
                 $pageSize,
+                $activeContests,
                 $query,
                 $orderBy
             );

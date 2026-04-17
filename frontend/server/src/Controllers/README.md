@@ -1196,10 +1196,9 @@ Returns a list of contests
 
 ### Returns
 
-| Name                | Type                          |
-| ------------------- | ----------------------------- |
-| `number_of_results` | `number`                      |
-| `results`           | `List[types.ContestListItem]` |
+```typescript
+types.ContestListTabPayload;
+```
 
 ## `/api/contest/listAllTabs/`
 
@@ -1223,11 +1222,34 @@ Returns paginated contest lists for current, past, and future in one API call.
 
 ### Returns
 
-| Name      | Type                                                               |
-| --------- | ------------------------------------------------------------------ |
-| `current` | `{ number_of_results: number; results: types.ContestListItem[]; }` |
-| `future`  | `{ number_of_results: number; results: types.ContestListItem[]; }` |
-| `past`    | `{ number_of_results: number; results: types.ContestListItem[]; }` |
+| Name      | Type                          |
+| --------- | ----------------------------- |
+| `current` | `types.ContestListTabPayload` |
+
+**`types.ContestListTabPayload` fields:**
+
+| Name                | Type                          | Required |
+| ------------------- | ----------------------------- | -------- |
+| `number_of_results` | `number`                      | ✓        |
+| `results`           | `List[types.ContestListItem]` | ✓        |
+
+| `future` | `types.ContestListTabPayload` |
+
+**`types.ContestListTabPayload` fields:**
+
+| Name                | Type                          | Required |
+| ------------------- | ----------------------------- | -------- |
+| `number_of_results` | `number`                      | ✓        |
+| `results`           | `List[types.ContestListItem]` | ✓        |
+
+| `past` | `types.ContestListTabPayload` |
+
+**`types.ContestListTabPayload` fields:**
+
+| Name                | Type                          | Required |
+| ------------------- | ----------------------------- | -------- |
+| `number_of_results` | `number`                      | ✓        |
+| `results`           | `List[types.ContestListItem]` | ✓        |
 
 ## `/api/contest/listParticipating/`
 
